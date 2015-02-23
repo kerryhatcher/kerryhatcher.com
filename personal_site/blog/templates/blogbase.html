@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block maincontent %}
+
+
+
+    {%- for post in posts recursive -%}
+
+
+
+
+    <!-- Title -->
+
+    <div class="bs-docs-section">
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="page-header">
+              <h1 id="type"><a href="{{ post.url }}">{{ post.Title }}</a></h1>
+            </div>
+          </div>
+        </div>
+
+        <!-- Content -->
+
+        <div class="row">
+          <div class="col-lg-10 col-lg-offset-2">
+            <div class="bs-component">
+
+              <p>{{ post.Content|safe  }}</p>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+
+    {%- endfor -%}
+{% endblock %}

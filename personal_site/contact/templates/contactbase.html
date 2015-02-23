@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% block maincontent %}
+
+    <div class="col-lg-6 col-lg-offset-3">
+            <div class="well bs-component">
+              <form  class="form-horizontal" action="{{ url_for('contact.contact_home') }}" method=post>
+                <fieldset>
+                  <legend>Contact</legend>
+                  <div class="form-group">
+                    <label class="col-lg-2 control-label" for="inputEmail">Email</label>
+                    <div class="col-lg-10">
+                      <input type="text" placeholder="Email" id="inputEmail" class="form-control">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="col-lg-2 control-label" for="inputPassword">{{ form.Name.label }}</label>
+                    <div class="col-lg-10">
+                         {{ form.Name(class_="form-control",rows="3",placeholder="Name") }}
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="col-lg-2 control-label" for="textArea">{{ form.Message.label }}</label>
+                    <div class="col-lg-10">
+
+
+    {{ form.Message(class_="form-control",rows="3") }}
+                      <span class="help-block">Please include your contact info.</span>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="col-lg-2 control-label" for="select">Security</label>
+                    <div class="col-lg-10">
+ <div class="g-recaptcha" data-sitekey="6LdZfQITAAAAAGdtoT8QknSgxdq4aUJIaJxteYJz"></div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="col-lg-10 col-lg-offset-2">
+                        {{ form.hidden_tag() }}
+                      <button class="btn btn-default" type="reset">Cancel</button>
+                      <button class="btn btn-primary" type="submit">Submit</button>
+                    </div>
+                  </div>
+                </fieldset>
+              </form>
+            </div>
+          </div>
+
+
+
+
+{% endblock %}
+
+{% block scripts %}
+  {{super()}}
+<script src='https://www.google.com/recaptcha/api.js'></script>
+
+{% endblock %}
