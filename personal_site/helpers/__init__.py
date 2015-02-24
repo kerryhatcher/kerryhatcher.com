@@ -32,8 +32,8 @@ def check_recaptcha (response):
 def send_me_email(message):
     #m = Message(to='user@gmail.com', text='Welcome')
     #resp = pystmark.send(m)
-    send_item_to_raygun(message)
-
+    #send_item_to_raygun(message)
+    pri
 
 def send_error_to_raygun():
         err = sys.exc_info()
@@ -42,4 +42,4 @@ def send_error_to_raygun():
 
 def send_item_to_raygun(message):
         err = sys.exc_info()
-        raygun.send(message)
+        #raygun.send(message)
