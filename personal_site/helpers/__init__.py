@@ -16,7 +16,7 @@ from raygun4py import raygunprovider
 
 raygun = raygunprovider.RaygunSender(environ.get('RAYGUN_APIKEY'))
 
-pystmark = Pystmark(current_app)
+#pystmark = Pystmark(current_app)
 
 def check_recaptcha (response):
     RECAP_SECRET = environ.get('RECAP_SECRET')
@@ -30,8 +30,9 @@ def check_recaptcha (response):
 
 
 def send_me_email(message):
-    m = Message(to='user@gmail.com', text='Welcome')
-    resp = pystmark.send(m)
+    #m = Message(to='user@gmail.com', text='Welcome')
+    #resp = pystmark.send(m)
+    send_item_to_raygun(message)
 
 
 def send_error_to_raygun():
