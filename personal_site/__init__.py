@@ -56,3 +56,7 @@ def page_not_found(e):
 def internal_error(error):
         send_error_to_raygun()
         return '500 error: ' + error.args[0]
+
+def send_error_to_raygun():
+        err = sys.exc_info()
+        rgHandler.send(err[0], err[1], err[2])
