@@ -5,11 +5,18 @@ import sys
 import requests
 import json
 
+from flask import current_app
+
 from postmark import PMMail
+
+from flask.ext.pystmark import Pystmark, Message
+from pystmark import ResponseError
 
 from raygun4py import raygunprovider
 
 raygun = raygunprovider.RaygunSender(environ.get('RAYGUN_APIKEY'))
+
+pystmark = Pystmark(current_app)
 
 def check_recaptcha (response):
     RECAP_SECRET = environ.get('RECAP_SECRET')
@@ -23,14 +30,8 @@ def check_recaptcha (response):
 
 
 def send_me_email(message):
-    message = PMMail(api_key = environ.get('POSTMARK_API_TOKEN'),
-                     subject = "Hello from Postmark",
-                     sender = "mail.bot@kerryhatcher.com",
-                     to = "kwhatcher@gmail.com",
-                     text_body = message,
-                     tag = "hello")
-
-    message.send()
+    m = Message(to='user@gmail.com', text='Welcome')
+    resp = pystmark.send(m)
 
 
 def send_error_to_raygun():

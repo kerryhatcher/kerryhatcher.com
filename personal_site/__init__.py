@@ -12,6 +12,9 @@ from mongoengine import connect
 
 from raygun4py import raygunprovider
 
+from flask.ext.pystmark import Pystmark, Message
+from pystmark import ResponseError
+
 from personal_site.blog.routes import blog
 from personal_site.contact.routes import contact
 from ares.routes import ares
@@ -23,6 +26,11 @@ app = Flask(__name__)
 app.register_blueprint(blog, url_prefix='/blog')
 app.register_blueprint(contact, url_prefix='/contact')
 app.register_blueprint(ares, url_prefix='/radio')
+
+app.config['PYSTMARK_API_KEY'] = 'your_api_key'
+app.config['PYSTMARK_DEFAULT_SENDER'] = 'admin@example.com'
+pystmark = Pystmark(app)
+
 
 Bootstrap(app)
 connect('sdf', host=environ.get('MONGOLAB_URI'))
