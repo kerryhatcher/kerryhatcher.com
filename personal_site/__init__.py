@@ -27,8 +27,8 @@ app.register_blueprint(blog, url_prefix='/blog')
 app.register_blueprint(contact, url_prefix='/contact')
 app.register_blueprint(ares, url_prefix='/radio')
 
-app.config['PYSTMARK_API_KEY'] = 'your_api_key'
-app.config['PYSTMARK_DEFAULT_SENDER'] = 'admin@example.com'
+app.config['PYSTMARK_API_KEY'] = environ.get('POSTMARK_API_TOKEN')
+app.config['PYSTMARK_DEFAULT_SENDER'] = 'admin@kerryhatcher.com'
 pystmark = Pystmark(app)
 
 
