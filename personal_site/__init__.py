@@ -33,7 +33,7 @@ app.config['SECRET_KEY'] = environ.get('SECRET_KEY')
 logger = logging.getLogger("mylogger")
 
 rgHandler = raygunprovider.RaygunHandler(environ.get('RAYGUN_APIKEY'))
-
+raygun = raygunprovider.RaygunSender(environ.get('RAYGUN_APIKEY'))
 logger.addHandler(rgHandler)
 
 def log_exception(exc_type, exc_value, exc_traceback):
@@ -59,4 +59,4 @@ def internal_error(error):
 
 def send_error_to_raygun():
         err = sys.exc_info()
-        rgHandler.send(err[0], err[1], err[2])
+        raygun.send(err[0], err[1], err[2])
