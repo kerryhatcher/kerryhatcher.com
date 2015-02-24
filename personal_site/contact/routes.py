@@ -10,6 +10,7 @@ from flask import flash
 from forms import ContactForm
 from personal_site.helpers import check_recaptcha
 from personal_site.helpers import send_me_email
+from personal_site.helpers import send_item_to_raygun
 
 contact = Blueprint('contact', __name__,
                     template_folder='templates')
@@ -25,6 +26,8 @@ def contact_home():
             flash("It worked")
             send_me_email(form.Message.data)
         else:
+            ray_message = "reCaptcha Error: " + str(recap)
+            send_item_to_raygun(ray_message)
             flash("reCaptcha status:" + str(recap['success']))
             return render_template('contactbase.html', form=form)
         return render_template('contactsubmit.html', contactor=form.Name.data)
