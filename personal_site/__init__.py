@@ -1,6 +1,7 @@
 __author__ = 'kwhatcher'
 
 from os import environ
+import sys, logging, os
 
 from flask import Flask
 from flask import render_template
@@ -8,6 +9,8 @@ from flask import render_template
 from flask_bootstrap import Bootstrap
 
 from mongoengine import connect
+
+from raygun4py import raygunprovider
 
 from personal_site.blog.routes import blog
 from personal_site.contact.routes import contact
@@ -25,6 +28,19 @@ Bootstrap(app)
 connect('sdf', host=environ.get('MONGOLAB_URI'))
 
 app.config['SECRET_KEY'] = environ.get('SECRET_KEY')
+
+
+logger = logging.getLogger("mylogger")
+
+rgHandler = raygunprovider.RaygunHandler(environ.get('RAYGUN_APIKEY'))
+
+logger.addHandler(rgHandler)
+
+def log_exception(exc_type, exc_value, exc_traceback):
+    print "Logging: %s" % exc_value
+    logger.error("A python error occurred", exc_info = (exc_type, exc_value, exc_traceback))
+
+sys.excepthook = log_exception
 
 @app.route('/')
 def hello_world():
