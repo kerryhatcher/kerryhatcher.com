@@ -24,13 +24,13 @@ mailgun2==0.1.4
 mandrill==1.0.57
 Markdown==2.6.1
 MarkupSafe==0.23
-mongoengine==0.9.0
+mongoengine==0.10.0
 ndg-httpsclient==0.4.0
 oauth2client==1.4.7
 pyasn1==0.1.8
 pyasn1-modules==0.0.6
 pycparser==2.14
-pymongo==2.8.1
+pymongo==3.0.3
 pyOpenSSL==0.15.1
 pystmark==0.4.4
 python-postmark==0.4.7
