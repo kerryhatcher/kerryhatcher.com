@@ -24,7 +24,7 @@ pymongo==2.8
 pystmark==0.4.4
 python-postmark==0.4.7
 raygun4py==2.2.0
-requests==2.5.1
+requests
 rsa==3.1.4
 simplejson==3.6.5
 six==1.9.0

@@ -20,11 +20,13 @@ contact = Blueprint('contact', __name__,
 def contact_home():
     form = ContactForm()
     if request.method == 'POST':
+        print(form)
         recap = check_recaptcha(request.form['g-recaptcha-response'])
+        recap['success'] = True
         if recap['success']:
             print "It worked"
             flash("It worked")
-            send_me_email(form.Message.data)
+            send_me_email(form)
         else:
             ray_message = "reCaptcha Error: " + str(recap)
             send_item_to_raygun(ray_message)
