@@ -30,10 +30,16 @@ def check_recaptcha (response):
 
 
 def send_me_email(message):
-    #m = Message(to='user@gmail.com', text='Welcome')
-    #resp = pystmark.send(m)
-    #send_item_to_raygun(message)
-    pri
+    print(message)
+    from mailgun2 import Mailgun
+    mailer = Mailgun(environ.get('MAILGUN_KEY'), environ.get('MAILGUN_DOMAIN'))
+    mailer.send_message(
+        'contact_form@kerryhatcher.com',
+        ['kwhatcher@gmail.com'],
+        subject='Email from' + message.Name.data + "[" + message.Email.data + "]",
+        text=message.Message.data
+        )
+    pass
 
 def send_error_to_raygun():
         err = sys.exc_info()
