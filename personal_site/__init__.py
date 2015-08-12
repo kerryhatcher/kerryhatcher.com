@@ -8,6 +8,7 @@ from flask import render_template
 
 from flask_bootstrap import Bootstrap
 
+from pymongo import read_preferences
 from mongoengine import connect
 
 from raygun4py import raygunprovider
@@ -33,7 +34,7 @@ pystmark = Pystmark(app)
 
 
 Bootstrap(app)
-connect('sdf', host=environ.get('MONGOLAB_URI'))
+connect('sdf', host=environ.get('MONGOLAB_URI'), read_preference=read_preferences.ReadPreference.PRIMARY)
 
 app.config['SECRET_KEY'] = environ.get('SECRET_KEY')
 
