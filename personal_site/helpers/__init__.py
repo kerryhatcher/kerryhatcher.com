@@ -26,6 +26,7 @@ def check_recaptcha (response):
     payload = {'secret': RECAP_SECRET, 'response': response}
     r = requests.post(url, data=payload)
     rdata = json.loads(r.text)
+    print rdata
     return rdata
 
 

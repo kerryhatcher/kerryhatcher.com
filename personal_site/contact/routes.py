@@ -20,6 +20,7 @@ contact = Blueprint('contact', __name__,
 def contact_home():
     form = ContactForm()
     if request.method == 'POST':
+        print(request.form)
         recap = check_recaptcha(request.form['g-recaptcha-response'])
         if recap['success']:
             flash("It worked")

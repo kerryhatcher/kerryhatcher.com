@@ -1,0 +1,9 @@
+{% import "_forms.html" as forms %}
+
+{% extends "accounts/base.html" %}
+
+
+
+{% block maincontent %}
+{{ forms.render(form) }}
+{% endblock %}
