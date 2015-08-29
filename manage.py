@@ -8,7 +8,9 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 from flask.ext.script import Manager, Server
 
-from  personal_site import app
+from  personal_site import create_app
+
+app = create_app('config.py')
 
 manager = Manager(app)
 
@@ -16,7 +18,7 @@ manager = Manager(app)
 manager.add_command("runserver", Server(
     use_debugger = True,
     use_reloader = True,
-    host = '0.0.0.0')
+    host = 'test.kerryhatcher.com')
 )
 
 if __name__ == "__main__":

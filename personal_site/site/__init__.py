@@ -1,28 +1,30 @@
 __author__ = 'khatcher'
-from flask import render_template, redirect, request, current_app, session, \
+from flask import render_template, redirect, request, session, \
     flash, url_for
 from flask.ext.security import LoginForm, current_user, login_required, \
     login_user, logout_user
 from flask.ext.social.utils import get_provider_or_404
 from flask.ext.social.views import connect_handler
+from flask import current_app
+from flask import Blueprint
 
-from . import app, db
-from .forms import RegisterForm
-from .tools import requires_auth
-from .models import User
+from personal_site.site.forms import RegisterForm
+from personal_site.site.models import User
 
-@app.route('/')
+site = Blueprint('site', __name__, template_folder='templates')
+
+@site.route('/')
 def homepage():
     return render_template('home.html')
 
-@app.route('/login')
+@site.route('/login')
 def login():
     if current_user.is_authenticated():
         return redirect(request.referrer or '/')
 
     return render_template('login.html', form=LoginForm())
 
-@app.route("/logout")
+@site.route("/logout")
 @login_required
 def logout():
     logout_user()
@@ -31,8 +33,8 @@ def logout():
 
 
 
-@app.route('/register', methods=['GET', 'POST'])
-@app.route('/register/<provider_id>', methods=['GET', 'POST'])
+@site.route('/register', methods=['GET', 'POST'])
+@site.route('/register/<provider_id>', methods=['GET', 'POST'])
 def register(provider_id=None):
     if current_user.is_authenticated():
         return redirect(request.referrer or '/')
@@ -74,13 +76,13 @@ def register(provider_id=None):
                            login_failed=login_failed,
                            connection_values=connection_values)
 
-@app.route('/profile')
+@site.route('/profile')
 @login_required
 def profile():
     return render_template('profile.html',
         google_conn=current_app.social.google.get_connection())
 
-@app.route('/profile/<provider_id>/post', methods=['POST'])
+@site.route('/profile/<provider_id>/post', methods=['POST'])
 @login_required
 def social_post(provider_id):
     message = request.form.get('message', None)
@@ -102,14 +104,14 @@ def social_post(provider_id):
 
 
 
-@app.route('/admin')
+@site.route('/admin')
 @login_required
 def admin():
     users = User.objects.all_fields()
     return render_template('admin.html', users=users)
 
 
-@app.route('/admin/users/<user_id>', methods=['DELETE', 'POST', 'GET'])
+@site.route('/admin/users/<user_id>', methods=['DELETE', 'POST', 'GET'])
 @login_required
 def delete_user(user_id):
     user = User.objects.get(id=user_id)
