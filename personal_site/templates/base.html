@@ -38,7 +38,7 @@
                   <li class="divider"></li>
                   <li>
                     <a href="{{ item.url}}">{{ item.text }}</a>
-                    {%- if item.children -%}
+                    {%- if item.children  -%}
                     <ul>
                       {{ loop(item.children) }}
                     </ul>

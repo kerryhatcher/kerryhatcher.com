@@ -1,0 +1,12 @@
+{% import "_forms.html" as forms %}
+
+{% extends "household/base.html" %}
+
+
+
+{% block maincontent %}
+      <form method="POST" action="{{ action_url }}" role="form" class="{{ class_ }}">
+{{ forms.render(form) }}
+      <button type="submit" class="btn btn-success">Submit</button>
+    </form>
+{% endblock %}
